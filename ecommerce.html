@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple E-commerce Example</title>
+  <style>
+    /* Basic styling */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .product {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+    }
+    .cart {
+      border: 1px solid #333;
+      padding: 10px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple E-commerce</h1>
+  
+  <div class="product">
+    <h2>Product 1</h2>
+    <p>Price: $10.00</p>
+    <button onclick="addToCart('Product 1', 10.00)">Add to Cart</button>
+  </div>
+  
+  <div class="product">
+    <h2>Product 2</h2>
+    <p>Price: $15.00</p>
+    <button onclick="addToCart('Product 2', 15.00)">Add to Cart</button>
+  </div>
+  
+  <div class="cart">
+    <h2>Shopping Cart</h2>
+    <ul id="cart-items">
+    </ul>
+    <p>Total: $<span id="cart-total">0.00</span></p>
+  </div>
+  
+  <script>
+    const cart = [];
+    
+    function addToCart(productName, price) {
+      cart.push({ productName, price });
+      updateCart();
+    }
+    
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+    
+    function updateCart() {
+      const cartItemsElement = document.getElementById('cart-items');
+      const cartTotalElement = document.getElementById('cart-total');
+      
+      cartItemsElement.innerHTML = '';
+      let total = 0;
+      
+      for (let i = 0; i < cart.length; i++) {
+        const item = cart[i];
+        cartItemsElement.innerHTML += `<li>${item.productName} - $${item.price} <button onclick="removeFromCart(${i})">Remove</button></li>`;
+        total += item.price;
+      }
+      
+      cartTotalElement.textContent = total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
